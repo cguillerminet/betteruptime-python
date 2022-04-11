@@ -1,0 +1,55 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/status-pages/123456/sections/123456
+    response:
+      body:
+        string: !!binary |
+          H4sIALUgVGIC/yXLOw6DMBCE4atYW6cgD1K4zUHQgldoC4zlHSMh5LtjSDn65zsoMJj8QRrI0/P1
+          /vRfehD2JG0bGMWGxLMMJhN0jS0ykHUsELtg5OW6/krOEuH+xI27M8mbTtJAWk1v67ta6wnFzcXi
+          dAAAAA==
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6fa3c29cda9bbd77-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1

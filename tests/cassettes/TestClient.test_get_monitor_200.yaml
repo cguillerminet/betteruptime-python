@@ -1,0 +1,61 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/monitors/123456
+    response:
+      body:
+        string: !!binary |
+          H4sIABYBVGIC/3VT0XLbIBD8F55tB9luGusr8pCnZjoMRmeLMXAUjqhqJv/eQ7IVdybVE1ote7t3
+          p3fRadKifRe2E61otrv9t0exEjRG4HePwRImBjRRssdCkCu5JMdfe6KY24eHYRg2ftwY9FGHkckx
+          YcASDOijAxW0n7TuGVdhda2TSVPJd/g5YYmqepotrYTTmZTpwVygU5r40lZut2u5XzfNSyPb5tA2
+          ciOl/MEyV71WlFjtoLNmnNRCcW4lEvwqNrHOBcYB04K/QbKnUeXM6SgVWImpoDrVCxDMKNqdZFA7
+          Jpy0y8zIPi9n8NouV2PJ/e1MoL0atKVbpdo65YF6rG0/A4nZFXBIsh6w0FwrgUG2NarI3iq5eZKf
+          1B50B4kNvP78BI/YsVHBiid0DgfFSTmtoXyzk8CDP0JSBvFiYcFNAk3/tne3bp5e5Pd217RSbvaH
+          qb0ldv/l7dq93Bwem2kM2Sn4HW3SZDHcsnfIbQpffEhw5reaRkzLAKUuXj3pIjgg3+AUXHceL7vv
+          4Jo9Ylp6azCcbPKT9NI2blrUJV9Nz8QZWKZXXREEzXvLE0d/o93jhF+iPLE/GOomP+tks/ioYdzk
+          IPc2Tv/MvIX1NP9yVeaDn791+adfgwMAAA==
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6fa2fb79aaafb7e7-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1

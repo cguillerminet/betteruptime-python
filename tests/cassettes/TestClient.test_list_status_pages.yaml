@@ -1,0 +1,60 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/status-pages?page=1
+    response:
+      body:
+        string: !!binary |
+          H4sIADvdU2IC/6VSTW/bMAz9K4XOTfwRJ2gFFDv0XGCHnjoMAi0rjjCJMiSqmxfkv4+am8Ibeitg
+          GBDfI/nIx7MYgEDIb2dhByFF0+66/UHcCponw+9EQDmpCUbDQSCKts9kkpBnoYOfAGeF4Av1ab55
+          XCLMvGI5OoZORFOSVeXnrV5RkEDTQsHs3K1wYQzrN1lvfgcs1b9CtImzUu6H4MEix/y8WZXLiYJX
+          7+CifPtvy4WjU7p2GEMYnVGA4GayOqmyhQXyFpVFbQeDpJzBkU5C1rwExJBRG8/xK3cdU8b3ZlAG
+          oXeGq1HM5kPGXxlCfIg5iz8WkAdOmrdeqgl5BJe42olVqWPkWZKBqE/cbbRYbHkjTJDSzxBXMt4z
+          eQVxFvKeR9HRAHE34EFEW7ftpt7x99x0cr+T3X571x1eWEOehv953aZpnuuD7O5ku9vWbfciLpfv
+          pTELAbIBy4kcbUy0OoDeEJmYp2Js8aWCyVavbbWYtSlnlr6U/0PDbR18InmK5vVqD5pfb1ZdLn8A
+          kYeGyfICAAA=
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6fa1e5b1aae7cd8f-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1

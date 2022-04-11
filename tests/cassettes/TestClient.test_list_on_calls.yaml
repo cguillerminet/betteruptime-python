@@ -1,0 +1,56 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/on-calls?page=1
+    response:
+      body:
+        string: !!binary |
+          H4sIALvtU2IC/52P3YoCMQyF3yXX1aKrXhTEBxFZ4jSugU6mtKkoQ9/dzqh4vzchP+dLTkbwqAju
+          OAJ7cLBa/2y2OzCgj0itHuS3wxCmQOIxtQmqJj4XpQxuBMG+6aSEYMDTBUvQr9hpKlQNJAqoPEi+
+          cpypz9qSKc2Nt4tTrfVkgKULxZOfOgYi/rHM/KS8cMranF1VY3bWnkmVUonKPS27obcY2d7WdpDF
+          dCIfGk77VTMe8J9gTHT7/Ch011de6xMcfdJSPQEAAA==
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6fa282c28a403b7f-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1

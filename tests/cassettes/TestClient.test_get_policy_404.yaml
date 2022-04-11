@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - ahoy_visit=19a7306e-b086-4bfa-942c-b6c59d3df50b; ahoy_visitor=e1760717-f644-4989-9a12-779f8e5467a5
+      User-Agent:
+      - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+    method: GET
+    uri: https://betteruptime.com/api/v2/policies/123456
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA6tWSi0qyi8qVrJSCkotzi8tSk5VKKksSFUoyM/JTK5UKM8syVDITFGwVTA0MjYx
+        NVMoTyxWyMsvUUjLL81LUaoFAKI6679AAAAA
+    headers:
+      CF-Cache-Status:
+      - BYPASS
+      CF-RAY:
+      - 6fa392826a1899f4-CDG
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      strict-transport-security:
+      - max-age=0
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - SAMEORIGIN
+      x-permitted-cross-domain-policies:
+      - none
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 404
+      message: Not Found
+version: 1

@@ -1,0 +1,63 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/incidents/123456
+    response:
+      body:
+        string: !!binary |
+          H4sIAGkQVGIC/4VTyW7bMBD9FYLnWKbkXdcCPbU9tO4ldUHQ1NgiIpEqlwhCkH/vUJYc2WkRnWZ5
+          s+jxzQsthBc0f6GqoDlNs8VytaYP1HcNoK+0VAVojxHhvVXH4MFFtBZ1zNcdkaZuhO5IaWpoxBkQ
+          GmyFudL7xuXzedu2Sd0lA26O+ZjhNfjSxJlniO2lCC52/OGFD46sGMPgOJ6frQkNjyvqUFUP1Hlh
+          PRRceCzJWMZmbDFju326yRebfLVO1uvsMS4tn7RpKyjOA/hSfhM+dmPYgjPV8w3yGrpBNUY74NJo
+          H7nJ6UEv2ZJ8M558NkEXB33QE2dfArHwJ4DDlcnP71/I/CRURVrhiEbYKcKI0cSXyhEH9hlsctB0
+          Mso0XqGBo15e+/j54v6iwaEPIf5rtESgvyd1/UsMlEkLoF1p/DQKTopKxOa8MZWS3YRkzCDO2wBY
+          XbvRhBqXH50muPJiv8axl1auVE2vktpo5Y2N5nuZbd5kNuJe8etfvQoFFB/C70X5ke4aazRyLUEc
+          K+CDhL925NN7CQ8j+DDR9aqcxO8FGd9XWdTJE3Stsdc4PqU6ddy5K2OyBPnET70gtERVLdhI9UlU
+          buR6sP9DNlIBouatUCi/dMv+fVOD6LhXNZjgL6MsSINbdbzB1SK4Lx+hR1PgSjSSFQ9yegqVwHy/
+          /c3hpdksTfdsm6erfLFMGGPx8FBs4u5As1m23ac7XCJnu2S3WkdcaIo7XJrOssWe7XJsmbFkm24e
+          oy7+AgLT9BmpBAAA
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6fa350977ce3ee7d-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1
