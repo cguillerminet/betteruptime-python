@@ -1,6 +1,8 @@
 """
 BetterUptime Status Pages Resource
 """
+from __future__ import annotations
+
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources.generic import MutableResource
 
@@ -20,9 +22,14 @@ class StatusPage(MutableResource):
 
     def __init__(self, http_client: HTTPClient, name: str = "status-pages") -> None:
         super().__init__(http_client, name)
-        self.reports = StatusPageReport(self)
-        self.resources = StatusPageResource(self)
-        self.sections = StatusPageSection(self)
+        self.reports = StatusPageReport(http_client=http_client, parent=self)
+        self.resources = StatusPageResource(http_client=http_client, parent=self)
+        self.sections = StatusPageSection(http_client=http_client, parent=self)
+
+    def __call__(self, resource_id: str) -> StatusPage:
+        new_resource = StatusPage(http_client=self.http_client)
+        new_resource._resource_id = resource_id
+        return new_resource
 
     @property
     def reports(self) -> StatusPageReport:

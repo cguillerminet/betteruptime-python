@@ -18,7 +18,7 @@ class ProxyError(BetterUptimeException):
     HTTP connection to the configured proxy server failed.
     """
 
-    def __init__(self, method, url, exception):
+    def __init__(self, method: str, url: str, exception: Exception):
         message = (
             f"Could not request {method} {url}: Unable to connect to proxy. "
             "Please check the proxy configuration and try again."
@@ -31,7 +31,7 @@ class ClientError(BetterUptimeException):
     HTTP connection to BetterUptime endpoint is not possible.
     """
 
-    def __init__(self, method, url, exception):
+    def __init__(self, method: str, url: str, exception: Exception):
         message = (
             f"Could not request {method} {url}: {exception}. "
             "Please check the network connection or try again later. "
@@ -44,7 +44,7 @@ class HttpTimeout(BetterUptimeException):
     HTTP connection timeout.
     """
 
-    def __init__(self, method, url, timeout):
+    def __init__(self, method: str, url: str, timeout: float):
         message = (
             f"{method} {url} timed out after {timeout}. "
             "Please try again later. "
@@ -58,7 +58,7 @@ class HttpBackoff(BetterUptimeException):
     Backing off after too many timeouts.
     """
 
-    def __init__(self, backoff_period):
+    def __init__(self, backoff_period: float):
         message = f"Too many timeouts. Won't try again for {backoff_period} seconds. "
         super().__init__(message)
 
@@ -68,12 +68,9 @@ class HTTPError(BetterUptimeException):
     BetterUptime returned a HTTP error.
     """
 
-    def __init__(self, status_code=None, reason=None):
+    def __init__(self, status_code: int = 400, reason: str = ""):
         reason = f" - {reason}" if reason else ""
-        message = (
-            f"BetterUptime returned a bad HTTP response code: {status_code}{reason}. "
-            "Please try again later. "
-        )
+        message = f"BetterUptime returned a bad HTTP response code: {status_code}{reason}. " "Please try again later. "
 
         super().__init__(message)
 
@@ -87,9 +84,9 @@ class ApiError(BetterUptimeException):
     def __init__(
         self,
         resource: str,
-        status_code: int = None,
-        reason: str = None,
-        message: str = None,
+        status_code: int = 400,
+        reason: str = "",
+        message: str = "",
     ):
         reason = f" - {reason}" if reason else ""
         message = message if message else ""

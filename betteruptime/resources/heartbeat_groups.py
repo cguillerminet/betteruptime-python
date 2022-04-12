@@ -1,11 +1,13 @@
 """
 BetterUptime Heartbeat Groups Resource
 """
-# from typing import Any, Dict
+from __future__ import annotations
 
 # from betteruptime.api.exceptions import ApiError
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources.generic import MutableResource
+
+# from typing import Any, Dict
 
 
 class HeartbeatGroup(MutableResource):
@@ -15,6 +17,11 @@ class HeartbeatGroup(MutableResource):
 
     def __init__(self, http_client: HTTPClient, name: str = "heartbeat-groups") -> None:
         super().__init__(http_client, name)
+
+    def __call__(self, resource_id: str) -> HeartbeatGroup:
+        new_resource = HeartbeatGroup(http_client=self.http_client)
+        new_resource._resource_id = resource_id
+        return new_resource
 
     # @property
     # def heartbeats(self) -> Dict[str, Any]:
