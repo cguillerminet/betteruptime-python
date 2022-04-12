@@ -1,10 +1,11 @@
 """
 Client tests
 """
-import betteruptime
 import pytest
-from betteruptime.api.exceptions import ApiError
 from pytest_mock import MockerFixture
+
+import betteruptime
+from betteruptime.api.exceptions import ApiError
 
 pytestmark = pytest.mark.vcr
 
@@ -14,16 +15,14 @@ class TestClient:
     BetterUptime API Client tests
     """
 
-    def test_bearer_token_set(self, client: betteruptime.Client):
+    def test_bearer_token_set(self, client: betteruptime.Client) -> None:
         """
         Test if Bearer token is set
         """
         assert "Authorization" in client.status_pages.http_client._headers
-        assert (
-            client.status_pages.http_client._headers["Authorization"] == "Bearer fake"
-        )
+        assert client.status_pages.http_client._headers["Authorization"] == "Bearer fake"
 
-    def test_401(self, client: betteruptime.Client):
+    def test_401(self, client: betteruptime.Client) -> None:
         """
         Test that an invalid token raises an ApiError
         """
@@ -31,7 +30,7 @@ class TestClient:
             client.status_pages.list()
         assert 401 == excinfo.value.status_code
 
-    def test_list_heartbeat_groups(self, client: betteruptime.Client):
+    def test_list_heartbeat_groups(self, client: betteruptime.Client) -> None:
         """
         Test list heartbeat groups.
         """
@@ -41,7 +40,7 @@ class TestClient:
         assert isinstance(heartbeat_groups["data"], list)
         assert len(heartbeat_groups["data"]) == 0
 
-    def test_list_heartbeats(self, client: betteruptime.Client):
+    def test_list_heartbeats(self, client: betteruptime.Client) -> None:
         """
         Test list heartbeats.
         """
@@ -51,7 +50,7 @@ class TestClient:
         assert isinstance(heartbeats["data"], list)
         assert len(heartbeats["data"]) == 0
 
-    def test_list_incidents(self, client: betteruptime.Client):
+    def test_list_incidents(self, client: betteruptime.Client) -> None:
         """
         Test list incidents.
         """
@@ -61,7 +60,7 @@ class TestClient:
         assert isinstance(incidents["data"], list)
         assert len(incidents["data"]) == 0
 
-    def test_list_metadata(self, client: betteruptime.Client):
+    def test_list_metadata(self, client: betteruptime.Client) -> None:
         """
         Test list metadata.
         """
@@ -71,7 +70,7 @@ class TestClient:
         assert isinstance(metadata["data"], list)
         assert len(metadata["data"]) == 0
 
-    def test_list_monitors(self, client: betteruptime.Client):
+    def test_list_monitors(self, client: betteruptime.Client) -> None:
         """
         Test list monitors.
         """
@@ -85,7 +84,7 @@ class TestClient:
         assert "type" in monitors["data"][0]
         assert monitors["data"][0]["type"] == "monitor"
 
-    def test_list_monitor_groups(self, client: betteruptime.Client):
+    def test_list_monitor_groups(self, client: betteruptime.Client) -> None:
         """
         Test list monitor groups.
         """
@@ -99,7 +98,7 @@ class TestClient:
         assert "type" in monitor_groups["data"][0]
         assert monitor_groups["data"][0]["type"] == "monitor_group"
 
-    def test_list_monitor_group_monitors(self, client: betteruptime.Client):
+    def test_list_monitor_group_monitors(self, client: betteruptime.Client) -> None:
         """
         Test list monitor group monitors.
         """
@@ -113,7 +112,7 @@ class TestClient:
         assert "type" in monitors["data"][0]
         assert monitors["data"][0]["type"] == "monitor"
 
-    def test_list_on_calls(self, client: betteruptime.Client):
+    def test_list_on_calls(self, client: betteruptime.Client) -> None:
         """
         Test list on_calls.
         """
@@ -127,7 +126,7 @@ class TestClient:
         assert "type" in on_calls["data"][0]
         assert on_calls["data"][0]["type"] == "on_call_calendar"
 
-    def test_list_policies(self, client: betteruptime.Client):
+    def test_list_policies(self, client: betteruptime.Client) -> None:
         """
         Test list escalation policies.
         """
@@ -137,7 +136,7 @@ class TestClient:
         assert isinstance(policies["data"], list)
         assert len(policies["data"]) == 0
 
-    def test_list_status_pages(self, client: betteruptime.Client):
+    def test_list_status_pages(self, client: betteruptime.Client) -> None:
         """
         Test list status pages.
         """
@@ -151,7 +150,7 @@ class TestClient:
         assert "type" in status_pages["data"][0]
         assert status_pages["data"][0]["type"] == "status_page"
 
-    def test_list_status_page_reports(self, client: betteruptime.Client):
+    def test_list_status_page_reports(self, client: betteruptime.Client) -> None:
         """
         Test list status page reports.
         """
@@ -168,13 +167,11 @@ class TestClient:
             == reports["pagination"]["first"]
         )
 
-    def test_list_status_page_report_status_updates(self, client: betteruptime.Client):
+    def test_list_status_page_report_status_updates(self, client: betteruptime.Client) -> None:
         """
         Test list status page report status updates.
         """
-        status_updates = (
-            client.status_pages("123456").reports("123456").status_updates.list()
-        )
+        status_updates = client.status_pages("123456").reports("123456").status_updates.list()
         assert isinstance(status_updates, dict)
         assert "data" in status_updates
         assert isinstance(status_updates["data"], list)
@@ -186,10 +183,7 @@ class TestClient:
         assert "attributes" in status_updates["data"][0]
         assert isinstance(status_updates["data"][0]["attributes"], dict)
         assert "message" in status_updates["data"][0]["attributes"]
-        assert (
-            status_updates["data"][0]["attributes"]["message"]
-            == "First status update message"
-        )
+        assert status_updates["data"][0]["attributes"]["message"] == "First status update message"
         assert "status_report_id" in status_updates["data"][0]["attributes"]
         assert status_updates["data"][0]["attributes"]["status_report_id"] == 123456
         assert "id" in status_updates["data"][1]
@@ -199,14 +193,11 @@ class TestClient:
         assert "attributes" in status_updates["data"][1]
         assert isinstance(status_updates["data"][1]["attributes"], dict)
         assert "message" in status_updates["data"][1]["attributes"]
-        assert (
-            status_updates["data"][1]["attributes"]["message"]
-            == "Second status update message"
-        )
+        assert status_updates["data"][1]["attributes"]["message"] == "Second status update message"
         assert "status_report_id" in status_updates["data"][1]["attributes"]
         assert status_updates["data"][1]["attributes"]["status_report_id"] == 123456
 
-    def test_list_status_page_resources(self, client: betteruptime.Client):
+    def test_list_status_page_resources(self, client: betteruptime.Client) -> None:
         """
         Test list status page resources.
         """
@@ -240,7 +231,7 @@ class TestClient:
         assert "resource_type" in resources["data"][1]["attributes"]
         assert resources["data"][1]["attributes"]["resource_type"] == "Monitor"
 
-    def test_list_status_page_sections(self, client: betteruptime.Client):
+    def test_list_status_page_sections(self, client: betteruptime.Client) -> None:
         """
         Test list status page sections.
         """
@@ -254,7 +245,7 @@ class TestClient:
         assert "type" in sections["data"][0]
         assert sections["data"][0]["type"] == "status_page_section"
 
-    def test_get_heartbeat_200(self, client: betteruptime.Client):
+    def test_get_heartbeat_200(self, client: betteruptime.Client) -> None:
         """
         Test get single heartbeat.
         """
@@ -265,7 +256,7 @@ class TestClient:
         assert "type" in heartbeat["data"]
         assert heartbeat["data"]["type"] == "heartbeat"
 
-    def test_get_heartbeat_404(self, client: betteruptime.Client):
+    def test_get_heartbeat_404(self, client: betteruptime.Client) -> None:
         """
         Test get single heartbeat but not found.
         """
@@ -274,11 +265,10 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'heartbeats' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'heartbeats' resource." == excinfo.value.message
         )
 
-    def test_get_heartbeat_group_200(self, client: betteruptime.Client):
+    def test_get_heartbeat_group_200(self, client: betteruptime.Client) -> None:
         """
         Test get single heartbeat group.
         """
@@ -289,7 +279,7 @@ class TestClient:
         assert "type" in heartbeat_group["data"]
         assert heartbeat_group["data"]["type"] == "heartbeat_group"
 
-    def test_get_heartbeat_group_404(self, client: betteruptime.Client):
+    def test_get_heartbeat_group_404(self, client: betteruptime.Client) -> None:
         """
         Test get single heartbeat group but not found.
         """
@@ -298,11 +288,10 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'heartbeat-groups' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'heartbeat-groups' resource." == excinfo.value.message
         )
 
-    def test_get_incident_200(self, client: betteruptime.Client):
+    def test_get_incident_200(self, client: betteruptime.Client) -> None:
         """
         Test get single incident.
         """
@@ -313,7 +302,7 @@ class TestClient:
         assert "type" in incident["data"]
         assert incident["data"]["type"] == "incident"
 
-    def test_get_incident_404(self, client: betteruptime.Client):
+    def test_get_incident_404(self, client: betteruptime.Client) -> None:
         """
         Test get single incident but not found.
         """
@@ -325,7 +314,7 @@ class TestClient:
             " - Not Found while querying 'incidents' resource." == excinfo.value.message
         )
 
-    def test_get_metadata_200(self, client: betteruptime.Client):
+    def test_get_metadata_200(self, client: betteruptime.Client) -> None:
         """
         Test get single metadata.
         """
@@ -336,7 +325,7 @@ class TestClient:
         assert "type" in metadata["data"]
         assert metadata["data"]["type"] == "metadata"
 
-    def test_get_metadata_404(self, client: betteruptime.Client, mocker: MockerFixture):
+    def test_get_metadata_404(self, client: betteruptime.Client, mocker: MockerFixture) -> None:
         """
         Test get single metadata but not found.
         """
@@ -348,7 +337,7 @@ class TestClient:
             " - Not Found while querying 'metadata' resource." == excinfo.value.message
         )
 
-    def test_get_monitor_200(self, client: betteruptime.Client):
+    def test_get_monitor_200(self, client: betteruptime.Client) -> None:
         """
         Test get single monitor.
         """
@@ -359,7 +348,7 @@ class TestClient:
         assert "type" in monitor["data"]
         assert monitor["data"]["type"] == "monitor"
 
-    def test_get_monitor_404(self, client: betteruptime.Client):
+    def test_get_monitor_404(self, client: betteruptime.Client) -> None:
         """
         Test get single monitor but not found.
         """
@@ -371,7 +360,7 @@ class TestClient:
             " - Not Found while querying 'monitors' resource." == excinfo.value.message
         )
 
-    def test_get_monitor_group_200(self, client: betteruptime.Client):
+    def test_get_monitor_group_200(self, client: betteruptime.Client) -> None:
         """
         Test get single monitor group.
         """
@@ -382,7 +371,7 @@ class TestClient:
         assert "type" in monitor_group["data"]
         assert monitor_group["data"]["type"] == "monitor_group"
 
-    def test_get_monitor_group_404(self, client: betteruptime.Client):
+    def test_get_monitor_group_404(self, client: betteruptime.Client) -> None:
         """
         Test get single monitor group but not found.
         """
@@ -391,11 +380,10 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'monitor-groups' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'monitor-groups' resource." == excinfo.value.message
         )
 
-    def test_get_on_call_200(self, client: betteruptime.Client):
+    def test_get_on_call_200(self, client: betteruptime.Client) -> None:
         """
         Test get single on call calendar.
         """
@@ -406,7 +394,7 @@ class TestClient:
         assert "type" in on_call["data"]
         assert on_call["data"]["type"] == "on_call_calendar"
 
-    def test_get_on_call_404(self, client: betteruptime.Client):
+    def test_get_on_call_404(self, client: betteruptime.Client) -> None:
         """
         Test get single on call calendar but not found.
         """
@@ -418,7 +406,7 @@ class TestClient:
             " - Not Found while querying 'on-calls' resource." == excinfo.value.message
         )
 
-    def test_get_policy_200(self, client: betteruptime.Client):
+    def test_get_policy_200(self, client: betteruptime.Client) -> None:
         """
         Test get single escalation policy.
         """
@@ -429,7 +417,7 @@ class TestClient:
         assert "type" in policy["data"]
         assert policy["data"]["type"] == "policy"
 
-    def test_get_policy_404(self, client: betteruptime.Client):
+    def test_get_policy_404(self, client: betteruptime.Client) -> None:
         """
         Test get single escalation policy but not found.
         """
@@ -441,7 +429,7 @@ class TestClient:
             " - Not Found while querying 'policies' resource." == excinfo.value.message
         )
 
-    def test_get_status_page_200(self, client: betteruptime.Client):
+    def test_get_status_page_200(self, client: betteruptime.Client) -> None:
         """
         Test get single status page.
         """
@@ -452,7 +440,7 @@ class TestClient:
         assert "type" in status_page["data"]
         assert status_page["data"]["type"] == "status_page"
 
-    def test_get_status_page_404(self, client: betteruptime.Client):
+    def test_get_status_page_404(self, client: betteruptime.Client) -> None:
         """
         Test get single status page but not found.
         """
@@ -461,11 +449,10 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'status-pages' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'status-pages' resource." == excinfo.value.message
         )
 
-    def test_get_status_page_report_200(self, client: betteruptime.Client):
+    def test_get_status_page_report_200(self, client: betteruptime.Client) -> None:
         """
         Test get single status page report.
         """
@@ -476,7 +463,7 @@ class TestClient:
         assert "type" in report["data"]
         assert report["data"]["type"] == "status_report"
 
-    def test_get_status_page_report_404(self, client: betteruptime.Client):
+    def test_get_status_page_report_404(self, client: betteruptime.Client) -> None:
         """
         Test get single status page report but not found.
         """
@@ -485,28 +472,21 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'status-reports' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'status-reports' resource." == excinfo.value.message
         )
 
-    def test_get_status_page_report_status_update_200(
-        self, client: betteruptime.Client
-    ):
+    def test_get_status_page_report_status_update_200(self, client: betteruptime.Client) -> None:
         """
         Test get single status page report status update.
         """
-        status_update = (
-            client.status_pages("123456").reports("123456").status_updates.get("123456")
-        )
+        status_update = client.status_pages("123456").reports("123456").status_updates.get("123456")
         assert isinstance(status_update, dict)
         assert "id" in status_update["data"]
         assert status_update["data"]["id"] == "123456"
         assert "type" in status_update["data"]
         assert status_update["data"]["type"] == "status_update"
 
-    def test_get_status_page_report_status_update_404(
-        self, client: betteruptime.Client
-    ):
+    def test_get_status_page_report_status_update_404(self, client: betteruptime.Client) -> None:
         """
         Test get single status page report status update but not found.
         """
@@ -515,11 +495,10 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'status-updates' resource."
-            == excinfo.value.message
+            " - Not Found while querying 'status-updates' resource." == excinfo.value.message
         )
 
-    def test_get_status_page_resource_200(self, client: betteruptime.Client):
+    def test_get_status_page_resource_200(self, client: betteruptime.Client) -> None:
         """
         Test get single status page resource.
         """
@@ -530,7 +509,7 @@ class TestClient:
         assert "type" in resource["data"]
         assert resource["data"]["type"] == "status_page_resource"
 
-    def test_get_status_page_resource_404(self, client: betteruptime.Client):
+    def test_get_status_page_resource_404(self, client: betteruptime.Client) -> None:
         """
         Test get single status page resource but not found.
         """
@@ -542,7 +521,7 @@ class TestClient:
             " - Not Found while querying 'resources' resource." == excinfo.value.message
         )
 
-    def test_get_status_page_section_200(self, client: betteruptime.Client):
+    def test_get_status_page_section_200(self, client: betteruptime.Client) -> None:
         """
         Test get single status page section.
         """
@@ -553,7 +532,7 @@ class TestClient:
         assert "type" in section["data"]
         assert section["data"]["type"] == "status_page_section"
 
-    def test_get_status_page_section_404(self, client: betteruptime.Client):
+    def test_get_status_page_section_404(self, client: betteruptime.Client) -> None:
         """
         Test get single status page section but not found.
         """

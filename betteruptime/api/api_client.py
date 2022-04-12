@@ -1,6 +1,8 @@
 """
 BetterUptime API Client
 """
+from typing import Dict, Union
+
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources import (
     EscalationPolicy,
@@ -14,6 +16,18 @@ from betteruptime.resources import (
     StatusPage,
 )
 
+BetterUptimeResource = Union[
+    EscalationPolicy,
+    Heartbeat,
+    HeartbeatGroup,
+    Incident,
+    Metadata,
+    Monitor,
+    MonitorGroup,
+    OnCallCalendar,
+    StatusPage,
+]
+
 
 class Client:
     """
@@ -21,27 +35,40 @@ class Client:
     """
 
     _http_client: HTTPClient
-    _resources: dict = {}
+    _resources: Dict[
+        str,
+        BetterUptimeResource,
+    ] = {}
+
+    _heartbeat_groups: HeartbeatGroup
+    _heartbeats: Heartbeat
+    _incidents: Incident
+    _metadata: Metadata
+    _monitor_groups: MonitorGroup
+    _monitors: Monitor
+    _on_calls: OnCallCalendar
+    _policies: EscalationPolicy
+    _status_pages: StatusPage
 
     def __init__(self, bearer_token: str) -> None:
         self._http_client = HTTPClient(bearer_token=bearer_token)
-        self._resources["heartbeat_groups"] = HeartbeatGroup(self._http_client)
-        self._resources["heartbeats"] = Heartbeat(self._http_client)
-        self._resources["incidents"] = Incident(self._http_client)
-        self._resources["metadata"] = Metadata(self._http_client)
-        self._resources["monitor_groups"] = MonitorGroup(self._http_client)
-        self._resources["monitors"] = Monitor(self._http_client)
-        self._resources["on_calls"] = OnCallCalendar(self._http_client)
-        self._resources["policies"] = EscalationPolicy(self._http_client)
-        self._resources["status_pages"] = StatusPage(self._http_client)
+        self._heartbeat_groups = HeartbeatGroup(self._http_client)
+        self._heartbeats = Heartbeat(self._http_client)
+        self._incidents = Incident(self._http_client)
+        self._metadata = Metadata(self._http_client)
+        self._monitor_groups = MonitorGroup(self._http_client)
+        self._monitors = Monitor(self._http_client)
+        self._on_calls = OnCallCalendar(self._http_client)
+        self._policies = EscalationPolicy(self._http_client)
+        self._status_pages = StatusPage(self._http_client)
 
     @property
-    def heartbeat_groups(self) -> Heartbeat:
+    def heartbeat_groups(self) -> HeartbeatGroup:
         r"""BetterUptime heartbeat groupss resource. Returns :class:`HeartbeatGroup` object.
 
         :rtype: betteruptime.resources.heartbeat_groups.HeartbeatGroup
         """
-        return self._resources["heartbeat_groups"]
+        return self._heartbeat_groups
 
     @property
     def heartbeats(self) -> Heartbeat:
@@ -49,7 +76,7 @@ class Client:
 
         :rtype: betteruptime.resources.heartbeats.Heartbeat
         """
-        return self._resources["heartbeats"]
+        return self._heartbeats
 
     @property
     def incidents(self) -> Incident:
@@ -57,7 +84,7 @@ class Client:
 
         :rtype: betteruptime.resources.incidents.Incident
         """
-        return self._resources["incidents"]
+        return self._incidents
 
     @property
     def metadata(self) -> Metadata:
@@ -65,15 +92,15 @@ class Client:
 
         :rtype: betteruptime.resources.metadata.Metadata
         """
-        return self._resources["metadata"]
+        return self._metadata
 
     @property
-    def monitor_groups(self) -> Monitor:
+    def monitor_groups(self) -> MonitorGroup:
         r"""BetterUptime monitor groups resource. Returns :class:`MonitorGroup` object.
 
         :rtype: betteruptime.resources.monitor_groups.MonitorGroup
         """
-        return self._resources["monitor_groups"]
+        return self._monitor_groups
 
     @property
     def monitors(self) -> Monitor:
@@ -81,7 +108,7 @@ class Client:
 
         :rtype: betteruptime.resources.monitor.Monitor
         """
-        return self._resources["monitors"]
+        return self._monitors
 
     @property
     def on_calls(self) -> OnCallCalendar:
@@ -89,7 +116,7 @@ class Client:
 
         :rtype: betteruptime.resources.on_call_calendar.OnCallCalendar
         """
-        return self._resources["on_calls"]
+        return self._on_calls
 
     @property
     def policies(self) -> EscalationPolicy:
@@ -97,7 +124,7 @@ class Client:
 
         :rtype: betteruptime.resources.escalation_policies.EscalationPolicy
         """
-        return self._resources["policies"]
+        return self._policies
 
     @property
     def status_pages(self) -> StatusPage:
@@ -105,4 +132,4 @@ class Client:
 
         :rtype: betteruptime.resources.status_pages.StatusPage
         """
-        return self._resources["status_pages"]
+        return self._status_pages

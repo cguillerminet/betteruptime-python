@@ -5,36 +5,32 @@ HTTP Client for BetterUptime API client.
 import logging
 import platform
 from threading import Lock
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 import requests
+from yarl import URL
 
 # betteruptime
 from betteruptime import version
-from betteruptime.api import (
-    _API_HOST,
-    _API_MAX_RETRIES,
-    _API_PROXIES,
-    _API_TIMEOUT,
-    _API_VERIFY,
-    _API_VERSION,
-)
+from betteruptime.api import _API_HOST, _API_MAX_RETRIES, _API_PROXIES, _API_TIMEOUT, _API_VERIFY, _API_VERSION
 from betteruptime.api.exceptions import ClientError, HTTPError, HttpTimeout, ProxyError
 from betteruptime.util.format import construct_url
-from yarl import URL
 
 logger: logging.Logger = logging.getLogger("betteruptime.api")
 
 
-def _get_user_agent_header():
+def _get_user_agent_header() -> str:
+    """
+    Compute User-Agent header
+    """
 
     return (
-        f"betteruptimepy/{version.__version__} (python {platform.python_version()};"
+        f"betteruptimepy/{version.version} (python {platform.python_version()};"
         f" os {platform.system().lower()}; arch {platform.machine().lower()})"
     )
 
 
-def _remove_context(exc):
+def _remove_context(exc: Exception) -> Exception:
     """Python3: remove context from chained exceptions to prevent leaking API keys in tracebacks."""
     exc.__cause__ = None
     return exc
@@ -47,7 +43,7 @@ class HTTPClient:
     """
 
     _bearer_token: Optional[str] = None
-    _headers: dict = {
+    _headers: Dict[str, str] = {
         "Accept": "application/json",
         "User-Agent": _get_user_agent_header(),
     }
@@ -69,12 +65,12 @@ class HTTPClient:
         cls,
         method: str,
         url: str,
-        headers: Optional[dict] = None,
-        params: Optional[dict] = None,
+        headers: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, Any]] = None,
         json: Any = None,
         timeout: float = _API_TIMEOUT,
         allow_redirects: bool = True,
-        proxies: Optional[dict] = _API_PROXIES,
+        proxies: Optional[Dict[str, str]] = _API_PROXIES,
         verify: bool = _API_VERIFY,
         max_retries: int = _API_MAX_RETRIES,
     ) -> requests.Response:
@@ -113,9 +109,7 @@ class HTTPClient:
             with cls._session_lock:
                 if cls._session is None:
                     cls._session = requests.Session()
-                    http_adapter = requests.adapters.HTTPAdapter(
-                        max_retries=max_retries
-                    )
+                    http_adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
                     cls._session.mount("https://", http_adapter)
                     cls._session.headers.update(cls._headers)
 
@@ -143,9 +137,7 @@ class HTTPClient:
                 # This gets caught afterwards and raises an ApiError exception
                 pass
             else:
-                raise _remove_context(
-                    HTTPError(exc.response.status_code, result.reason)
-                ) from exc
+                raise _remove_context(HTTPError(exc.response.status_code, result.reason)) from exc
         except TypeError as exc:
             raise TypeError(
                 "Your installed version of `requests` library seems not compatible with"
@@ -154,7 +146,7 @@ class HTTPClient:
 
         return result
 
-    def get(self, path: URL, **kwargs) -> requests.Response:
+    def get(self, path: URL, **kwargs: Any) -> requests.Response:
         r"""Sends a GET request. Returns :class:`Response` object.
 
         :param path: PATH for the request.
@@ -165,7 +157,7 @@ class HTTPClient:
         kwargs.setdefault("allow_redirects", True)
         return self.request("GET", construct_url(self.base_url, path), **kwargs)
 
-    def options(self, path: URL, **kwargs) -> requests.Response:
+    def options(self, path: URL, **kwargs: Any) -> requests.Response:
         r"""Sends a OPTIONS request. Returns :class:`Response` object.
 
         :param path: UPATHRL for the request.
@@ -176,7 +168,7 @@ class HTTPClient:
         kwargs.setdefault("allow_redirects", True)
         return self.request("OPTIONS", construct_url(self.base_url, path), **kwargs)
 
-    def head(self, path: URL, **kwargs) -> requests.Response:
+    def head(self, path: URL, **kwargs: Any) -> requests.Response:
         r"""Sends a HEAD request. Returns :class:`Response` object.
 
         :param path: PATH for the request.
@@ -187,7 +179,7 @@ class HTTPClient:
         kwargs.setdefault("allow_redirects", False)
         return self.request("HEAD", construct_url(self.base_url, path), **kwargs)
 
-    def post(self, path: URL, json: Any = None, **kwargs) -> requests.Response:
+    def post(self, path: URL, json: Any = None, **kwargs: Any) -> requests.Response:
         r"""Sends a POST request. Returns :class:`Response` object.
 
         :param path: PATH for the request.
@@ -196,11 +188,9 @@ class HTTPClient:
         :rtype: requests.Response
         """
 
-        return self.request(
-            "POST", construct_url(self.base_url, path), json=json, **kwargs
-        )
+        return self.request("POST", construct_url(self.base_url, path), json=json, **kwargs)
 
-    def put(self, path: URL, json: Any = None, **kwargs) -> requests.Response:
+    def put(self, path: URL, json: Any = None, **kwargs: Any) -> requests.Response:
         r"""Sends a PUT request. Returns :class:`Response` object.
 
         :param path: PATH for the request.
@@ -210,11 +200,9 @@ class HTTPClient:
         :rtype: requests.Response
         """
 
-        return self.request(
-            "PUT", construct_url(self.base_url, path), json=json, **kwargs
-        )
+        return self.request("PUT", construct_url(self.base_url, path), json=json, **kwargs)
 
-    def patch(self, path: URL, json: Any = None, **kwargs) -> requests.Response:
+    def patch(self, path: URL, json: Any = None, **kwargs: Any) -> requests.Response:
         r"""Sends a PATCH request. Returns :class:`Response` object.
 
         :param path: PATH for the request.
@@ -224,11 +212,9 @@ class HTTPClient:
         :rtype: requests.Response
         """
 
-        return self.request(
-            "PATCH", construct_url(self.base_url, path), json=json, **kwargs
-        )
+        return self.request("PATCH", construct_url(self.base_url, path), json=json, **kwargs)
 
-    def delete(self, path: URL, **kwargs) -> requests.Response:
+    def delete(self, path: URL, **kwargs: Any) -> requests.Response:
         r"""Sends a DELETE request. Returns :class:`Response` object.
 
         :param path: PATH for the request.

@@ -1,7 +1,9 @@
 """
 BetterUptime Monitor Groups Resource
 """
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 from betteruptime.api.exceptions import ApiError
 from betteruptime.api.http_client import HTTPClient
@@ -16,8 +18,13 @@ class MonitorGroup(MutableResource):
     def __init__(self, http_client: HTTPClient, name: str = "monitor-groups") -> None:
         super().__init__(http_client, name)
 
+    def __call__(self, resource_id: str) -> MonitorGroup:
+        new_resource = MonitorGroup(http_client=self.http_client)
+        new_resource._resource_id = resource_id
+        return new_resource
+
     @property
-    def monitors(self) -> Dict[str, Any]:
+    def monitors(self) -> Any:
         """
         List monitors in this group.
         """
@@ -27,11 +34,7 @@ class MonitorGroup(MutableResource):
                 f" You must use {self.__class__.__name__}('12345').monitors."
             )
 
-        result = self.http_client.get(
-            path=self._get_base_path() / self.resource_id / "monitors"
-        )
+        result = self.http_client.get(path=self._get_base_path() / self.resource_id / "monitors")
         if 200 == result.status_code:
             return result.json()
-        raise ApiError(
-            resource=self.name, status_code=result.status_code, reason=result.reason
-        )
+        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)

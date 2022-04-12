@@ -1,5 +1,12 @@
-**/*.pyc
+.*_cache
+__pycache__
+**.pyc
 **/.DS_Store
 **/*.log
-
+*.egg-info
+.tox/
+/build
+dist
+betteruptime/version.py
 .venv/
+.vscode/
