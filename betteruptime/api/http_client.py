@@ -11,10 +11,10 @@ import requests
 from yarl import URL
 
 # betteruptime
-from betteruptime import version
 from betteruptime.api import _API_HOST, _API_MAX_RETRIES, _API_PROXIES, _API_TIMEOUT, _API_VERIFY, _API_VERSION
 from betteruptime.api.exceptions import ClientError, HTTPError, HttpTimeout, ProxyError
 from betteruptime.util.format import construct_url
+from betteruptime.version import version as __version__
 
 logger: logging.Logger = logging.getLogger("betteruptime.api")
 
@@ -25,7 +25,7 @@ def _get_user_agent_header() -> str:
     """
 
     return (
-        f"betteruptimepy/{version.version} (python {platform.python_version()};"
+        f"betteruptimepy/{__version__} (python {platform.python_version()};"
         f" os {platform.system().lower()}; arch {platform.machine().lower()})"
     )
 

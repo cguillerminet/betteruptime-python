@@ -1,13 +1,15 @@
 """
 pytest configuration
 """
+from typing import Any, Dict
+
 import pytest
 
 import betteruptime
 
 
 @pytest.fixture()
-def client():
+def client() -> betteruptime.Client:
     """
     BetterUptime Client instance.
     """
@@ -35,7 +37,7 @@ def clean_response(response):
 
 
 @pytest.fixture(scope="module", autouse=True)
-def vcr_config():
+def vcr_config() -> Dict[str, Any]:
     """
     vcr configuration
     """
