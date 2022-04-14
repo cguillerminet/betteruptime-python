@@ -1,0 +1,46 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "0"
+        User-Agent:
+          - betteruptimepy/0.1.0rc1 (python 3.9.10; os darwin; arch x86_64)
+      method: DELETE
+      uri: https://betteruptime.com/api/v2/monitors/123456
+    response:
+      body:
+        string: ""
+      headers:
+        CF-Cache-Status:
+          - DYNAMIC
+        CF-RAY:
+          - 6fbbb9544ea240e1-CDG
+        Connection:
+          - keep-alive
+        Server:
+          - cloudflare
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 204
+        message: No Content
+version: 1

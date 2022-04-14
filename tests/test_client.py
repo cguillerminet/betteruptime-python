@@ -543,3 +543,45 @@ class TestClient:
             "BetterUptime returned the following HTTP response code: 404"
             " - Not Found while querying 'sections' resource." == excinfo.value.message
         )
+
+    def test_post_monitor_201(self, client: betteruptime.Client) -> None:
+        """
+        Test create a monitor.
+        """
+        new_monitor = {
+            "monitor_type": "status",
+            "url": "https://facebook.com",
+            "pronounceable_name": "Facebook homepage",
+            "email": True,
+            "sms": False,
+            "call": False,
+            "check_frequency": 30,
+            "request_headers": [{"name": "X-Custom-Header", "value": "custom header value"}],
+        }
+        monitor = client.monitors.create(new_monitor)
+        assert isinstance(monitor, dict)
+        assert "id" in monitor["data"]
+        assert monitor["data"]["id"] == "123456"
+        assert "type" in monitor["data"]
+        assert monitor["data"]["type"] == "monitor"
+
+    def test_patch_monitor_200(self, client: betteruptime.Client) -> None:
+        """
+        Test update a monitor.
+        """
+        changed_fields = {"email": False}
+        monitor = client.monitors("123456").update(changed_fields)
+        assert isinstance(monitor, dict)
+        assert "id" in monitor["data"]
+        assert monitor["data"]["id"] == "123456"
+        assert "type" in monitor["data"]
+        assert monitor["data"]["type"] == "monitor"
+        assert "attributes" in monitor["data"]
+        assert "email" in monitor["data"]["attributes"]
+        assert monitor["data"]["attributes"]["email"] is False
+
+    def test_delete_monitor_204(self, client: betteruptime.Client) -> None:
+        """
+        Test delete a monitor.
+        """
+        client.monitors.delete("123456")

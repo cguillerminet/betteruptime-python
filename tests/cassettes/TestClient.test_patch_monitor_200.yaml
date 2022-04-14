@@ -1,0 +1,65 @@
+interactions:
+  - request:
+      body: '{"email": false}'
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+        User-Agent:
+          - betteruptimepy/0.1.0rc1 (python 3.9.10; os darwin; arch x86_64)
+      method: PATCH
+      uri: https://betteruptime.com/api/v2/monitors/123456
+    response:
+      body:
+        string: !!binary |
+          H4sIAA75V2IC/21T0XLbIBD8F54dR5YVJ9F39KmdDIPRyWIMHIUjqprpv/eQLMXTRk+wrPb29uBD
+          dIqUaD+E6UQrDvWxeTqJnaApAO8dekMYGVBE0ZwzQSrkHC2fDkQhtY+P4zju3bTX6ILyE5NDRI/Z
+          a1BnC9IrN2vdM27C8lYnkaKc7vBLxBxk8eSztTthVSKpB9BX6KQi/qWu6vqhah4OzbdD1dav7fG0
+          r6rqO4vc1FqRQzGD1ujpTivCz2wi61xhGjFu+DtE008yJe6NYoadmAvKvvwAXk+iPbxUjCrLjF7Z
+          xJTk0rYGp8znSchpWIUIlJOjMrTWKtFJBzRgif0CJBZfwG2ScYCZqceqgBrZ2CQDuyvk2cJKHUB1
+          ENnBj7dP8IzdtNbp0VocJXfLHWtKq6EIDtwZotSIVwMbriMo+jfiiiM+ts1zW1f7p8NriTiH7n/e
+          Mopj3dbN/vn0Mo8iWQm/gomKDPrVVYeclP/iIMKFd2ndMoFNc5llomy2g1uzAeMWpkbfm+hmpS0n
+          TimonG4eF+ICbBMqJgi84ovKQ0a30u5xwi9RHtFv9LCc/SnG7Vw+DSbML2S5dWW1PLCZx99fAGk3
+          4HEDAAA=
+      headers:
+        CF-Cache-Status:
+          - DYNAMIC
+        CF-RAY:
+          - 6fbbc7019f534099-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1
