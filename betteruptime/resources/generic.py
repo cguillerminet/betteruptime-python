@@ -127,7 +127,7 @@ class MutableResource(ImmutableResource):
             return result.json()
         raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
 
-    def delete(self, resource_id: Optional[str] = None) -> Any:
+    def delete(self, resource_id: Optional[str] = None) -> None:
         """
         Delete resource.
         """
@@ -141,7 +141,7 @@ class MutableResource(ImmutableResource):
 
         result = self.http_client.delete(path=self._get_base_path() / resource_id)
         if 204 == result.status_code:
-            return result.json()
+            return None
         raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
 
     def update(self, payload: Dict[str, Any], resource_id: Optional[str] = None) -> Any:
