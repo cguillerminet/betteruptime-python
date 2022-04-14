@@ -1,6 +1,8 @@
 """
 Client tests
 """
+import types
+
 import pytest
 from pytest_mock import MockerFixture
 
@@ -102,7 +104,7 @@ class TestClient:
         """
         Test list monitor group monitors.
         """
-        monitors = client.monitor_groups("123456").monitors
+        monitors = client.monitor_groups("123456").monitors()
         assert isinstance(monitors, dict)
         assert "data" in monitors
         assert isinstance(monitors["data"], list)
@@ -111,6 +113,8 @@ class TestClient:
         assert monitors["data"][0]["id"] == "123456"
         assert "type" in monitors["data"][0]
         assert monitors["data"][0]["type"] == "monitor"
+        monitors = client.monitor_groups("123456").monitors_iter()
+        assert isinstance(monitors, types.GeneratorType)
 
     def test_list_on_calls(self, client: betteruptime.Client) -> None:
         """

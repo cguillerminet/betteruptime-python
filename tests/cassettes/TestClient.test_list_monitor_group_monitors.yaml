@@ -11,7 +11,7 @@ interactions:
         User-Agent:
           - betteruptimepy/0.0.0 (python 3.9.10; os darwin; arch x86_64)
       method: GET
-      uri: https://betteruptime.com/api/v2/monitor-groups/123456/monitors
+      uri: https://betteruptime.com/api/v2/monitor-groups/123456/monitors?page=1
     response:
       body:
         string: !!binary |
