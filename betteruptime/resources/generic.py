@@ -3,7 +3,7 @@ BetterUptime generic Resource classes
 """
 from __future__ import annotations
 
-from typing import Any, Dict, Generator, Optional, Union
+from typing import Any, Dict, Generator, Optional
 
 from yarl import URL
 

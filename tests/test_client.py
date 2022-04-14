@@ -584,5 +584,4 @@ class TestClient:
         """
         Test delete a monitor.
         """
-        response = client.monitors.delete("123456")
-        assert response is None
+        client.monitors.delete("123456")
