@@ -1,0 +1,110 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - betteruptimepy/0.1.3.dev0+g559ad60.d20220414 (python 3.9.10; os darwin; arch
+        x86_64)
+    method: GET
+    uri: https://betteruptime.com/api/v2/monitors?pronounceable_name=Backend
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA51Ty47bMAz8F52ziaOkm66BokC/oIeeuigExmZiIdajEpWsG+TfS/mVHBZ72Ish
+        U+RwZkReRQ0Eony9Cl2LUjxvv2x3hVgI6jzyv3FWkwscAKKg94kwivIqUmj5tiHysVytOEjL/OE8
+        H5x1yVYI+xaVBZNhfkB1Qlvz9QioRvxIQCk+xI/BJa8yF5vadiFaiKSqBrm+VkBTeKwrhYcUMQN7
+        1+qqe6gM+DfpwFUn7C4uzPEzBn3oVIysgELChejh1SEXoK06UW4KDkLLCQdoI2dEE+czGtD3G59i
+        M+EQglEX0DPL7I8ySI3L3h4x+9N3YU2kDbpEQ7OAlWNenfJMLievvxb31AahxsAMXv/cg3tXM1PB
+        iAfXtu6iWCrLrShOdAIaNHsMqnLupHGOVwGBRjeFLKR8KrZPUv4qnsvNupS7pZS734ybfP1B3qZY
+        vrzInMdOKnzzOgBpZyfttWOf7DsXAY/8l9WI/uUx5enKJ0iCBXIFq+C+wxsz+xpH7d6F2dvK2YMO
+        poeebWPThoH4gLTsSY9zM1qSqRJa4LHlOXBmavIYJ/dulJ/xn7N5ln9C0FHcssK2pxUb7fttGWYz
+        n4ZtyzC32y0rgqO2oz1XwYIiPezVHokwJJ+bLCtnVuD16ixX47LE71yO39ZiWJNPFfqA50mXxTea
+        yP0HeWr8BhkEAAA=
+    headers:
+      CF-Cache-Status:
+      - BYPASS
+      CF-RAY:
+      - 6ffc52cd2d674093-CDG
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      strict-transport-security:
+      - max-age=0
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - SAMEORIGIN
+      x-permitted-cross-domain-policies:
+      - none
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Cookie:
+      - ahoy_visit=78544e75-0d71-4daf-ae51-26642118bbfe; ahoy_visitor=7fb87cca-5fc9-4aab-9edc-39cd1eb2578b
+      User-Agent:
+      - betteruptimepy/0.1.3.dev0+g559ad60.d20220414 (python 3.9.10; os darwin; arch
+        x86_64)
+    method: DELETE
+    uri: https://betteruptime.com/api/v2/monitors/645470
+  response:
+    body:
+      string: ''
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 6ffc52d22d174093-CDG
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      strict-transport-security:
+      - max-age=0
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - SAMEORIGIN
+      x-permitted-cross-domain-policies:
+      - none
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 204
+      message: No Content
+version: 1

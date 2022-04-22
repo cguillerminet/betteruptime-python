@@ -60,3 +60,29 @@ class Monitor(MutableResource):
                 return {"data": exists["data"][0]}
             raise ApiError(resource=self.name, status_code=codes["not_found"], reason="Not Found")
         raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+
+    def delete_by_name(self, name: str) -> Any:
+        """
+        Delete a single monitor by name.
+        """
+        if name is None:
+            raise ValueError(
+                f"An url is mandatory to call {self.__class__.__name__}.delete_by_name()."
+                f" You must use {self.__class__.__name__}.delete_by_name('Backend')."
+            )
+
+        monitor = self.get_by_name(name=name)
+        self.delete(monitor["data"]["id"])
+
+    def delete_by_url(self, url: str) -> Any:
+        """
+        Delete a single monitor by url.
+        """
+        if url is None:
+            raise ValueError(
+                f"An url is mandatory to call {self.__class__.__name__}.delete_by_url()."
+                f" You must use {self.__class__.__name__}.delete_by_url('http://my.company')."
+            )
+
+        monitor = self.get_by_url(url=url)
+        self.delete(monitor["data"]["id"])

@@ -640,4 +640,16 @@ class TestClient:
         """
         Test delete a monitor.
         """
-        client.monitors.delete("123456")
+        assert client.monitors.delete("123456") is None
+
+    def test_delete_monitor_by_name_204(self, client: betteruptime.Client) -> None:
+        """
+        Test delete a monitor by name.
+        """
+        assert client.monitors.delete_by_name("Backend") is None
+
+    def test_delete_monitor_by_url_204(self, client: betteruptime.Client) -> None:
+        """
+        Test delete a monitor by url.
+        """
+        assert client.monitors.delete_by_url("https://api.my.company") is None
