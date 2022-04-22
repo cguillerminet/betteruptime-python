@@ -364,6 +364,58 @@ class TestClient:
             " - Not Found while querying 'monitors' resource." == excinfo.value.message
         )
 
+    def test_get_monitor_by_name_200(self, client: betteruptime.Client) -> None:
+        """
+        Test get single monitor by name.
+        """
+        monitor = client.monitors.get_by_name("Backend")
+        assert isinstance(monitor, dict)
+        assert "id" in monitor["data"]
+        assert monitor["data"]["id"] == "123456"
+        assert "type" in monitor["data"]
+        assert monitor["data"]["type"] == "monitor"
+        assert "attributes" in monitor["data"]
+        assert "pronounceable_name" in monitor["data"]["attributes"]
+        assert monitor["data"]["attributes"]["pronounceable_name"] == "Backend"
+
+    def test_get_monitor_by_name_404(self, client: betteruptime.Client) -> None:
+        """
+        Test get single monitor by name but not found.
+        """
+        with pytest.raises(ApiError) as excinfo:
+            client.monitors.get_by_name("Non existant monitor")
+        assert 404 == excinfo.value.status_code
+        assert (
+            "BetterUptime returned the following HTTP response code: 404"
+            " - Not Found while querying 'monitors' resource." == excinfo.value.message
+        )
+
+    def test_get_monitor_by_url_200(self, client: betteruptime.Client) -> None:
+        """
+        Test get single monitor by url.
+        """
+        monitor = client.monitors.get_by_url("https://api.my.company")
+        assert isinstance(monitor, dict)
+        assert "id" in monitor["data"]
+        assert monitor["data"]["id"] == "123456"
+        assert "type" in monitor["data"]
+        assert monitor["data"]["type"] == "monitor"
+        assert "attributes" in monitor["data"]
+        assert "url" in monitor["data"]["attributes"]
+        assert monitor["data"]["attributes"]["url"] == "https://api.my.company"
+
+    def test_get_monitor_by_url_404(self, client: betteruptime.Client) -> None:
+        """
+        Test get single monitor by url but not found.
+        """
+        with pytest.raises(ApiError) as excinfo:
+            client.monitors.get_by_url("https://non-existant.monitor")
+        assert 404 == excinfo.value.status_code
+        assert (
+            "BetterUptime returned the following HTTP response code: 404"
+            " - Not Found while querying 'monitors' resource." == excinfo.value.message
+        )
+
     def test_get_monitor_group_200(self, client: betteruptime.Client) -> None:
         """
         Test get single monitor group.

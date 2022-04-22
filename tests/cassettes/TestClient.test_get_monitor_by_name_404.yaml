@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - ahoy_visit=82bbe0ed-b23f-48d2-a861-ccbe393c3cff; ahoy_visitor=9f359256-5f40-415e-bfa8-4ef05230c540
+      User-Agent:
+      - betteruptimepy/0.1.3.dev0+g559ad60.d20220414 (python 3.9.10; os darwin; arch
+        x86_64)
+    method: GET
+    uri: https://betteruptime.com/api/v2/monitors?pronounceable_name=Non+existant+monitor
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA53LQQoCMQwF0Lv8dbHoMiBzkMFF1KiBNg1tZhCGubuCN3D3Nm/DnYNB8yXB+anG
+        oc1AGx7aR4DwivBBOV8lQvrioVUOt1Yzu+b1lGszjdbH9O1yPiKh8J/Ru6wgW0pJMHnHz/v+AXXc
+        JTylAAAA
+    headers:
+      CF-Cache-Status:
+      - BYPASS
+      CF-RAY:
+      - 6ffc1bdc0af77926-CDG
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      strict-transport-security:
+      - max-age=0
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - SAMEORIGIN
+      x-permitted-cross-domain-policies:
+      - none
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

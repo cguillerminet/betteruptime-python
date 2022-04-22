@@ -1,0 +1,63 @@
+interactions:
+  - request:
+      body: null
+      headers:
+        Accept:
+          - application/json
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - betteruptimepy/0.1.3.dev0+g559ad60.d20220414 (python 3.9.10; os darwin; arch
+            x86_64)
+      method: GET
+      uri: https://betteruptime.com/api/v2/monitors?url=https://api.my.company
+    response:
+      body:
+        string: !!binary |
+          H4sIAFtIYmIC/51TyY7bMAz9F52z2M7S1EBRoF/QQ04dFIIiM7EQbZWoZNwg/17K20yLOfVGUeTj
+          e1werBEoWP3yYKphNSurzXa3ZwuGnQd6G2cVukAOgRjUKSFEVj9YCpp+W0Qf6/VaeLUy3Uo644Xt
+          KNgHZ12yEsRJA7fCZKxvQl7BNvQ9ovKxSESBKb7zX4JLnmdCxYJpEZHLFii54QIpviqqallsl1V1
+          LPZ1ua135aooih+EMELVLPlMw2klux7IJq0XLMCvpALhXKG7uzD7bxDUueMxkioMCRasL8jPOQGs
+          7Fi9ISpSaAo4Cx0pIpo422CEmlN9iu1kIwjD70LhVCm3jBvA1uV2XwDZwApIJCoDLuFQK4B0RKvj
+          nrjl4PJQvIW2IBoIRODl55vz5Boiygjx7LR2d05KSa3EONEJYMCcIHDp3FXB7JcBBP7d3s2yPByL
+          T/WmrItitf3ctzf55t84GkN5zDOgSexWh/2hH0PUHF69CgKVs5P2xlGb7AcfAS70ympYvweQ8sJl
+          SyRGAimDVFDdYbzEvoFRu3dh7q109qyC6aHntlHTvEhxJD0EDo55epkVghW0rzRxZ6aw9350H3pp
+          Yr+dzUv8XQQV2TOL0T2D2Crf38qwhdkabi3DPJ/PTF5clB078WDEPeK7qzoBIoTkc5F8W/nM1rdq
+          PV5J/Erp8KVkw4n8V6IPcJt0WXjFidwfkcE14xcEAAA=
+      headers:
+        CF-Cache-Status:
+          - BYPASS
+        CF-RAY:
+          - 6ffc392b18ac3b07-CDG
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - application/json; charset=utf-8
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        strict-transport-security:
+          - max-age=0
+        vary:
+          - Accept-Encoding
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-frame-options:
+          - SAMEORIGIN
+        x-permitted-cross-domain-policies:
+          - none
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
+version: 1
