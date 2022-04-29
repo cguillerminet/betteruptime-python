@@ -387,7 +387,7 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'monitors' resource." == excinfo.value.message
+            " - Nothing matches the given URI while querying 'monitors' resource." == excinfo.value.message
         )
 
     def test_get_monitor_by_url_200(self, client: betteruptime.Client) -> None:
@@ -413,7 +413,7 @@ class TestClient:
         assert 404 == excinfo.value.status_code
         assert (
             "BetterUptime returned the following HTTP response code: 404"
-            " - Not Found while querying 'monitors' resource." == excinfo.value.message
+            " - Nothing matches the given URI while querying 'monitors' resource." == excinfo.value.message
         )
 
     def test_get_monitor_group_200(self, client: betteruptime.Client) -> None:
@@ -640,16 +640,32 @@ class TestClient:
         """
         Test delete a monitor.
         """
-        client.monitors.delete("123456")
+        result = client.monitors.delete("123456")
+        assert result is None
+
+    def test_delete_monitor_404(self, client: betteruptime.Client) -> None:
+        """
+        Test delete a monitor but not found.
+        """
+        with pytest.raises(ApiError) as excinfo:
+            client.monitors.delete("123456")
+        assert 404 == excinfo.value.status_code
+        assert (
+            "BetterUptime returned the following HTTP response code: 404"
+            " - Not Found while querying 'monitors' resource." == excinfo.value.message
+        )
+        assert "Resource type monitor with id = 123456 was not found" == excinfo.value.errors
 
     def test_delete_monitor_by_name_204(self, client: betteruptime.Client) -> None:
         """
         Test delete a monitor by name.
         """
-        client.monitors.delete_by_name("Backend")
+        result = client.monitors.delete_by_name("Backend")
+        assert result is None
 
     def test_delete_monitor_by_url_204(self, client: betteruptime.Client) -> None:
         """
         Test delete a monitor by url.
         """
-        client.monitors.delete_by_url("https://api.my.company")
+        result = client.monitors.delete_by_url("https://api.my.company")
+        assert result is None

@@ -1,6 +1,7 @@
 """
 API & HTTP Clients exceptions.
 """
+from betteruptime.typing import JSON
 
 
 class BetterUptimeException(Exception):
@@ -84,6 +85,7 @@ class ApiError(BetterUptimeException):
     def __init__(
         self,
         resource: str,
+        errors: JSON,
         status_code: int = 400,
         reason: str = "",
         message: str = "",
@@ -102,3 +104,4 @@ class ApiError(BetterUptimeException):
         self.status_code = status_code
         self.reason = reason
         self.message = message
+        self.errors = errors

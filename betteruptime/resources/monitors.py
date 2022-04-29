@@ -3,13 +3,14 @@ BetterUptime Monitors Resource
 """
 from __future__ import annotations
 
+from http import HTTPStatus
 from typing import Any
-
-from requests import codes
 
 from betteruptime.api.exceptions import ApiError
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources.generic import MutableResource
+from betteruptime.typing import JSON
+from betteruptime.util.errors import parse_error_response
 
 
 class Monitor(MutableResource):
@@ -25,7 +26,7 @@ class Monitor(MutableResource):
         new_resource._resource_id = resource_id
         return new_resource
 
-    def get_by_name(self, name: str) -> Any:
+    def get_by_name(self, name: str) -> JSON:
         """
         Get a single monitor by name.
         """
@@ -40,10 +41,21 @@ class Monitor(MutableResource):
             exists = result.json()
             if len(exists["data"]) == 1:
                 return {"data": exists["data"][0]}
-            raise ApiError(resource=self.name, status_code=codes["not_found"], reason="Not Found")
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            raise ApiError(
+                resource=self.name,
+                status_code=HTTPStatus.NOT_FOUND,
+                reason=HTTPStatus.NOT_FOUND.description,
+                errors=None,
+            )
 
-    def get_by_url(self, url: str) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def get_by_url(self, url: str) -> JSON:
         """
         Get a single monitor by url.
         """
@@ -58,8 +70,19 @@ class Monitor(MutableResource):
             exists = result.json()
             if len(exists["data"]) == 1:
                 return {"data": exists["data"][0]}
-            raise ApiError(resource=self.name, status_code=codes["not_found"], reason="Not Found")
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            raise ApiError(
+                resource=self.name,
+                status_code=HTTPStatus.NOT_FOUND,
+                reason=HTTPStatus.NOT_FOUND.description,
+                errors=None,
+            )
+
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
 
     def delete_by_name(self, name: str) -> Any:
         """
@@ -72,6 +95,7 @@ class Monitor(MutableResource):
             )
 
         monitor = self.get_by_name(name=name)
+        assert isinstance(monitor, dict)
         self.delete(monitor["data"]["id"])
 
     def delete_by_url(self, url: str) -> Any:
@@ -85,4 +109,5 @@ class Monitor(MutableResource):
             )
 
         monitor = self.get_by_url(url=url)
+        assert isinstance(monitor, dict)
         self.delete(monitor["data"]["id"])
