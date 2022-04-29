@@ -113,8 +113,8 @@ class TestClient:
         assert monitors["data"][0]["id"] == "123456"
         assert "type" in monitors["data"][0]
         assert monitors["data"][0]["type"] == "monitor"
-        monitors = client.monitor_groups("123456").monitors_iter()
-        assert isinstance(monitors, types.GeneratorType)
+        monitors_iter = client.monitor_groups("123456").monitors_iter()
+        assert isinstance(monitors_iter, types.GeneratorType)
 
     def test_list_on_calls(self, client: betteruptime.Client) -> None:
         """
