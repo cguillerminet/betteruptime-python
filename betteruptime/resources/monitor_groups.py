@@ -3,13 +3,15 @@ BetterUptime Monitor Groups Resource
 """
 from __future__ import annotations
 
-from typing import Any, Dict, Generator
+from typing import Generator
 
 from yarl import URL
 
 from betteruptime.api.exceptions import ApiError
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources.generic import MutableResource
+from betteruptime.typing import JSON
+from betteruptime.util.errors import parse_error_response
 
 
 class MonitorGroup(MutableResource):
@@ -25,7 +27,7 @@ class MonitorGroup(MutableResource):
         new_resource._resource_id = resource_id
         return new_resource
 
-    def monitors(self, page: int = 1) -> Any:
+    def monitors(self, page: int = 1) -> JSON:
         """
         List paginated monitors in this group.
         """
@@ -39,15 +41,23 @@ class MonitorGroup(MutableResource):
             path=(self._get_base_path() / self.resource_id / "monitors").update_query(page=page)
         )
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload: JSON = result.json()
+            return payload
 
-    def monitors_iter(self, page: int = 1) -> Generator[Dict[str, Any], None, None]:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def monitors_iter(self, page: int = 1) -> Generator[JSON, None, None]:
         """
         List all monitor items by itering over all pages.
         """
         while True:
             result = self.monitors(page=page)
+            assert isinstance(result, dict)
             for monitor in result["data"]:
                 yield monitor
             if result["pagination"]["next"]:

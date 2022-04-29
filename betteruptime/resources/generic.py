@@ -3,13 +3,15 @@ BetterUptime generic Resource classes
 """
 from __future__ import annotations
 
-from typing import Any, Dict, Generator, Optional
+from typing import Generator, Optional
 
 from yarl import URL
 
 from betteruptime.api.exceptions import ApiError
 from betteruptime.api.http_client import HTTPClient
 from betteruptime.resources.abstract import AbstractResource, AbstractSubResource
+from betteruptime.typing import JSON
+from betteruptime.util.errors import parse_error_response
 
 
 class ImmutableResource(AbstractResource):
@@ -21,7 +23,7 @@ class ImmutableResource(AbstractResource):
         super().__init__(http_client)
         self.name = name
 
-    def get(self, resource_id: Optional[str] = None) -> Any:
+    def get(self, resource_id: Optional[str] = None) -> JSON:
         """
         Get a single resource.
         """
@@ -35,24 +37,39 @@ class ImmutableResource(AbstractResource):
 
         result = self.http_client.get(path=self._get_base_path() / resource_id)
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload: JSON = result.json()
+            return payload
 
-    def list(self, page: int = 1) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def list(self, page: int = 1) -> JSON:
         """
         List paginated resource.
         """
         result = self.http_client.get(path=self._get_base_path().update_query(page=page))
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload: JSON = result.json()
+            return payload
 
-    def list_iter(self, page: int = 1) -> Generator[Dict[str, Any], None, None]:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def list_iter(self, page: int = 1) -> Generator[JSON, None, None]:
         """
         List all resource items by itering over all pages.
         """
         while True:
             result = self.list(page=page)
+            assert isinstance(result, dict)
             for monitor in result["data"]:
                 yield monitor
             if result["pagination"]["next"]:
@@ -71,7 +88,7 @@ class ImmutableSubResource(AbstractSubResource):
         super().__init__(http_client=http_client, parent=parent)
         self.name = name
 
-    def get(self, resource_id: Optional[str] = None) -> Any:
+    def get(self, resource_id: Optional[str] = None) -> JSON:
         """
         Get a single sub-resource.
         """
@@ -85,25 +102,40 @@ class ImmutableSubResource(AbstractSubResource):
 
         result = self.http_client.get(path=self._build_path(URL(self.name)) / resource_id)
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload: JSON = result.json()
+            return payload
 
-    def list(self, page: int = 1) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def list(self, page: int = 1) -> JSON:
         """
         List paginated sub-resource.
         """
         path: URL = self._build_path(URL(self.name))
         result = self.http_client.get(path=path.update_query(page=page))
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload: JSON = result.json()
+            return payload
 
-    def list_iter(self, page: int = 1) -> Generator[Dict[str, Any], None, None]:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def list_iter(self, page: int = 1) -> Generator[JSON, None, None]:
         """
         List all sub-resource itmes by itering over all pages.
         """
         while True:
             result = self.list(page=page)
+            assert isinstance(result, dict)
             for monitor in result["data"]:
                 yield monitor
             if result["pagination"]["next"]:
@@ -118,16 +150,23 @@ class MutableResource(ImmutableResource):
     Mutable BetterUptime Resource.
     """
 
-    def create(self, payload: Dict[str, Any]) -> Any:
+    def create(self, payload: JSON) -> JSON:
         """
         Create resource.
         """
         result = self.http_client.post(path=self._get_base_path(), json=payload)
         if 201 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload = result.json()
+            return payload
 
-    def delete(self, resource_id: Optional[str] = None) -> None:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def delete(self, resource_id: Optional[str] = None) -> JSON:
         """
         Delete resource.
         """
@@ -142,9 +181,15 @@ class MutableResource(ImmutableResource):
         result = self.http_client.delete(path=self._get_base_path() / resource_id)
         if 204 == result.status_code:
             return None
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
 
-    def update(self, payload: Dict[str, Any], resource_id: Optional[str] = None) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def update(self, payload: JSON, resource_id: Optional[str] = None) -> JSON:
         """
         Update resource.
         """
@@ -158,8 +203,15 @@ class MutableResource(ImmutableResource):
 
         result = self.http_client.patch(path=self._get_base_path() / resource_id, json=payload)
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload = result.json()
+            return payload
+
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
 
 
 class MutableSubResource(ImmutableSubResource):
@@ -167,16 +219,23 @@ class MutableSubResource(ImmutableSubResource):
     Mutable BetterUptime SubResource.
     """
 
-    def create(self, payload: Dict[str, Any]) -> Any:
+    def create(self, payload: JSON) -> JSON:
         """
         Create resource.
         """
         result = self.http_client.post(path=self._build_path(URL(self.name)), json=payload)
         if 201 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload = result.json()
+            return payload
 
-    def delete(self, resource_id: Optional[str] = None) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def delete(self, resource_id: Optional[str] = None) -> JSON:
         """
         Delete resource.
         """
@@ -190,10 +249,16 @@ class MutableSubResource(ImmutableSubResource):
 
         result = self.http_client.delete(path=self._build_path(URL(self.name)) / resource_id)
         if 204 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            return None
 
-    def update(self, payload: Dict[str, Any], resource_id: Optional[str] = None) -> Any:
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
+
+    def update(self, payload: JSON, resource_id: Optional[str] = None) -> JSON:
         """
         Update resource.
         """
@@ -210,5 +275,12 @@ class MutableSubResource(ImmutableSubResource):
             json=payload,
         )
         if 200 == result.status_code:
-            return result.json()
-        raise ApiError(resource=self.name, status_code=result.status_code, reason=result.reason)
+            payload = result.json()
+            return payload
+
+        raise ApiError(
+            resource=self.name,
+            status_code=result.status_code,
+            reason=result.reason,
+            errors=parse_error_response(result),
+        )
